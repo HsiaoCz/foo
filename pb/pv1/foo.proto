@@ -1,0 +1,15 @@
+syntax="proto3";
+
+package pv1;
+
+option go_package="./;pv1";
+
+service Foo{
+    rpc UserSignup(SignupRequest) returns (SignupResponse){}
+    rpc UserLogin(LoginRequest) returns (LoginResponse){}
+}
+
+message SignupRequest{}
+message SignupResponse{}
+message LoginRequest{}
+message LoginResponse{}
