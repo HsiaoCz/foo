@@ -5,11 +5,18 @@ package pv1;
 option go_package="./;pv1";
 
 service Foo{
+    // user api
     rpc UserSignup(SignupRequest) returns (SignupResponse){}
     rpc UserLogin(LoginRequest) returns (LoginResponse){}
 }
 
-message SignupRequest{}
+message SignupRequest{
+    string username=1;
+    string password=2;
+    string repassword=3;
+    string email=4;
+    string phone=5;
+}
 message SignupResponse{}
 message LoginRequest{}
 message LoginResponse{}
