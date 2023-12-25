@@ -3,17 +3,17 @@ package server
 import (
 	"net"
 
-	"github.com/HsiaoCz/foo/Admin/pb/pv1"
-	"github.com/HsiaoCz/foo/Admin/service"
+	"github.com/HsiaoCz/foo/Serach/pb/pv1"
+	"github.com/HsiaoCz/foo/Serach/service"
 	"google.golang.org/grpc"
 )
 
-func ResGrpcServer(network string, addr string) error {
+func RegisterGrpc(network, addr string) error {
 	conn, err := net.Listen(network, addr)
 	if err != nil {
 		return err
 	}
 	server := grpc.NewServer()
-	pv1.RegisterFooServer(server, service.NewAdminSer())
+	pv1.RegisterFooServer(server, service.NewSerachService())
 	return server.Serve(conn)
 }
