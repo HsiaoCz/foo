@@ -1,0 +1,11 @@
+app:
+  network: "tcp"
+  addr: "127.0.0.1:3002"
+
+mysql:
+  host: "127.0.0.1"
+  port: "3306"
+  user: "root"
+  password: "shaw123"
+  dbname: "foo"
+

@@ -1,6 +1,6 @@
 app:
   network: "tcp"
-  addr: "127.0.0.1:3005"
+  addr: "127.0.0.1:3003"
 
 mysql:
   host: "127.0.0.1"
