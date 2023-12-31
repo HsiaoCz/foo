@@ -3,6 +3,7 @@ module github.com/HsiaoCz/foo
 go 1.21.3
 
 require (
+	github.com/bwmarrin/snowflake v0.3.0
 	github.com/gofiber/fiber/v2 v2.51.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/spf13/viper v1.18.1

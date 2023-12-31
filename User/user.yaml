@@ -1,6 +1,8 @@
 app:
   network: "tcp"
   addr: "127.0.0.1:3005"
+  stime: "2023-12-31"
+  machineID: 1
 
 mysql:
   host: "127.0.0.1"
