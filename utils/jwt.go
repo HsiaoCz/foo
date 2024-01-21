@@ -18,7 +18,7 @@ const TokenExpireDuration = time.Hour * 24 * 90
 
 // 定义secret
 
-var mySecret = []byte("hello kitty")
+var mySecret = []byte("hello LY")
 
 // GenToken 生成token
 func GenToken(userId int64) (token string, err error) {
