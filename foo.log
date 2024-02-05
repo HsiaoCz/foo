@@ -1,0 +1,2 @@
+{"level":"INFO","time":"2024-02-05T17:32:06.171+0800","caller":"foo/main.go:29","msg":"Hello My man the server is running","addr":"127.0.0.1:3001"}
+{"level":"INFO","time":"2024-02-05T17:33:11.592+0800","caller":"foo/main.go:29","msg":"hello my man the server is running","addr":"127.0.0.1:3001"}

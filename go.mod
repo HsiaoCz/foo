@@ -4,6 +4,7 @@ go 1.21.3
 
 require (
 	github.com/bwmarrin/snowflake v0.3.0
+	github.com/fsnotify/fsnotify v1.7.0
 	github.com/gofiber/fiber/v2 v2.51.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/spf13/viper v1.18.1
@@ -16,7 +17,6 @@ require (
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect
-	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/uuid v1.4.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
