@@ -1,3 +1,16 @@
 app:
-  addr: 127.0.0.1:3001
+  name: "foo"
+  mode: "debug"
+  app_port: "127.0.0.1:9009"
+  version: "v0.0.1"
+  start_time: "2023-12-12"
+  machine_id: 1
+
+log:
+  level: "debug"
+  filename: "foo.log"
+  max_size: 200
+  max_age: 30
+  max_backups: 7
+
   

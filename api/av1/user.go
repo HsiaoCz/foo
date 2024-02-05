@@ -39,3 +39,7 @@ func UserLogin(c *fiber.Ctx) error {
 		"Message": "Login successed!",
 	})
 }
+
+func UserModifed(c *fiber.Ctx) error {
+	return nil
+}
