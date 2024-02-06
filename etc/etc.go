@@ -9,8 +9,9 @@ import (
 var Conf = new(FooConfig)
 
 type FooConfig struct {
-	App AppConf `mapstructure:"app"`
-	Log LogConf `mapstructure:"log"`
+	App  AppConf `mapstructure:"app"`
+	Log  LogConf `mapstructure:"log"`
+	Addr Addrs   `mapstructure:"addrs"`
 }
 
 type AppConf struct {
@@ -28,6 +29,14 @@ type LogConf struct {
 	MaxSize    int    `mapstructure:"max_size"`
 	MaxAge     int    `mapstructure:"max_age"`
 	MaxBackups int    `mapstructure:"max_backups"`
+}
+
+type Addrs struct {
+	User    string `mapstructure:"user"`
+	Admin   string `mapstructure:"admin"`
+	Comment string `mapstructure:"comment"`
+	Content string `mapstructure:"content"`
+	Serach  string `mapstructure:"serach"`
 }
 
 func ParseConfig() (err error) {

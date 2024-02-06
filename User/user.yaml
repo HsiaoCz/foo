@@ -1,15 +1,23 @@
 app:
-  network: "tcp"
+  mode: "dev"
+  version: "v0.0.1"
   addr: "127.0.0.1:3005"
   stime: "2023-12-31"
   machineID: 1
+
+log:
+  level: "debug"
+  filename: "user.log"
+  max_size: 200
+  max_age: 30
+  max_backups: 7
 
 mysql:
   host: "127.0.0.1"
   port: "3306"
   user: "root"
   password: "shaw123"
-  dbname: "foo"
+  dbname: "usersrv"
 
 redis:
   host: "127.0.0.1"

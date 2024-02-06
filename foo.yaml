@@ -13,4 +13,9 @@ log:
   max_age: 30
   max_backups: 7
 
-  
+addrs:
+  user: "127.0.0.1:3005"
+  admin: "127.0.0.1:3002"
+  comment: "127.0.0.1:3006"
+  content: "127.0.0.1:3003"
+  serach: "127.0.0.1:3004"
