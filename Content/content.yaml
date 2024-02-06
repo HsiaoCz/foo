@@ -1,16 +1,26 @@
 app:
-  network: "tcp"
+  mode: "dev"
+  version: "v0.0.1"
   addr: "127.0.0.1:3003"
+  stime: "2023-12-31"
+  machineID: 1
+
+log:
+  level: "debug"
+  filename: "content.log"
+  max_size: 200
+  max_age: 30
+  max_backups: 7
 
 mysql:
   host: "127.0.0.1"
   port: "3306"
   user: "root"
   password: "shaw123"
-  dbname: "foo"
+  dbname: "contentsrv"
 
 redis:
   host: "127.0.0.1"
   port: "6379"
-  db: "1"
+  db: "2"
   password: ""
