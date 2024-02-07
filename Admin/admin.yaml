@@ -17,10 +17,10 @@ mysql:
   port: "3306"
   user: "root"
   password: "shaw123"
-  dbname: "contentsrv"
+  dbname: "adminsrv"
 
 redis:
   host: "127.0.0.1"
   port: "6379"
-  db: "2"
+  db: "4"
   password: ""
