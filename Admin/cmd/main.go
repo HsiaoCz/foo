@@ -1,9 +1,12 @@
 package main
 
 import (
-	"log"
+	"log/slog"
 
+	"github.com/HsiaoCz/foo/Admin/etc"
+	"github.com/HsiaoCz/foo/Admin/logger"
 	"github.com/HsiaoCz/foo/Admin/server"
+	"go.uber.org/zap"
 )
 
 var (
@@ -12,7 +15,16 @@ var (
 )
 
 func main() {
+	if err := etc.ParseConfig(); err != nil {
+		slog.Error("parse config err:", err)
+		return
+	}
+	if err := logger.InitLogger(logger.NewZapLoggerConf()); err != nil {
+		slog.Error("init logger err:", err)
+		return
+	}
 	if err := server.ResGrpcServer(network, addr); err != nil {
-		log.Fatal(err)
+		zap.L().Error("register grpc server err:%v\n", zap.Error(err))
+		return
 	}
 }
