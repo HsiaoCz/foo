@@ -27,6 +27,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FooClient interface {
+	// user api
 	UserSignup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*SignupResponse, error)
 	UserLogin(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 }
@@ -61,6 +62,7 @@ func (c *fooClient) UserLogin(ctx context.Context, in *LoginRequest, opts ...grp
 // All implementations must embed UnimplementedFooServer
 // for forward compatibility
 type FooServer interface {
+	// user api
 	UserSignup(context.Context, *SignupRequest) (*SignupResponse, error)
 	UserLogin(context.Context, *LoginRequest) (*LoginResponse, error)
 	mustEmbedUnimplementedFooServer()
