@@ -1,18 +1,29 @@
 package main
 
 import (
-	"log"
+	"log/slog"
 
 	"github.com/HsiaoCz/foo/Admin/server"
+	"github.com/HsiaoCz/foo/Content/etc"
+	"github.com/HsiaoCz/foo/Content/logger"
 )
 
 var (
-	network = "tcp"
-	addr    = "127.0.0.1:3003"
+	addr = etc.Conf.App.AppPort
 )
 
 func main() {
-	if err := server.ResGrpcServer(network, addr); err != nil {
-		log.Fatal(err)
+	logger.InitSlogger()
+	if err := etc.ParseConfig(); err != nil {
+		slog.Error("parse config err:", err)
+		return
+	}
+	if err := logger.InitLogger(logger.NewZapLoggerConf()); err != nil {
+		slog.Error("logger init zap logger err:", err)
+		return
+	}
+	if err := server.ResGrpcServer("tcp", addr); err != nil {
+		slog.Error("register grpc server err:", err)
+		return
 	}
 }
