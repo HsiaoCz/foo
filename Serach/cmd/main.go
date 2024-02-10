@@ -11,10 +11,11 @@ import (
 
 var (
 	network = "tcp"
-	addr    = "127.0.0.1:3004"
+	addr    = etc.Conf.App.AppPort
 )
 
 func main() {
+	logger.InitSlogger()
 	if err := etc.ParseConfig(); err != nil {
 		slog.Error("parse config err:", err)
 		return

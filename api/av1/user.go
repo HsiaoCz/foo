@@ -60,6 +60,11 @@ func UserSingup(c *fiber.Ctx) error {
 }
 
 func UserLogin(c *fiber.Ctx) error {
+	userL := new(UserL)
+	if err := c.BodyParser(userL); err != nil {
+		return err
+	}
+	
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"Code":    fiber.StatusOK,
 		"Message": "Login successed!",
