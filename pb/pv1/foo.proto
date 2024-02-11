@@ -4,7 +4,7 @@ package pv1;
 
 option go_package="./;pv1";
 
-service Foo{
+service User{
     // user api
     rpc UserSignup(SignupRequest) returns (SignupResponse){}
     rpc UserLogin(LoginRequest) returns (LoginResponse){}
@@ -32,3 +32,31 @@ message LoginResponse{
     string msg=1;
     int64 code=2;
 }
+
+service Content{
+   rpc CreateContent(CreateContentRequest) returns (CreateContentResponse){}
+}
+
+message CreateContentRequest{}
+message CreateContentResponse{}
+
+service Admin{
+    rpc AdminLogin(AdminLoginRequest) returns (AdminLoginResponse){}
+}
+
+message AdminLoginRequest{}
+message AdminLoginResponse{}
+
+service Serach{
+    rpc AddSerachHistory(AddSerachHistoryRequest) returns (AddSerachHistoryResponse){}
+}
+
+message AddSerachHistoryRequest{}
+message AddSerachHistoryResponse{}
+
+service Comment{
+    rpc AddComment(AddCommentRequest) returns (AddCommentResponse){}
+}
+
+message AddCommentRequest{}
+message AddCommentResponse{}

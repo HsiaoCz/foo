@@ -7,7 +7,7 @@ import (
 )
 
 type UserCase struct {
-	pv1.UnimplementedFooServer
+	pv1.UnimplementedUserServer
 }
 
 func (u *UserCase) UserSignup(ctx context.Context, in *pv1.SignupRequest) (*pv1.SignupResponse, error) {

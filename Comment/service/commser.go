@@ -7,7 +7,7 @@ import (
 
 type CommService struct {
 	ur data.CommentRepo
-	pv1.UnimplementedFooServer
+	pv1.UnimplementedCommentServer
 }
 
 func NewCommService(ur data.CommentRepo) *CommService {

@@ -14,6 +14,6 @@ func ResGrpcServer(network string, addr string) error {
 		return err
 	}
 	server := grpc.NewServer()
-	pv1.RegisterFooServer(server, service.NewUserCase())
+	pv1.RegisterUserServer(server, service.NewUserCase())
 	return server.Serve(listen)
 }

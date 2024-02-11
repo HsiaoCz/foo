@@ -15,6 +15,6 @@ func RegisterGrpc(network, addr string) error {
 		return err
 	}
 	server := grpc.NewServer()
-	pv1.RegisterFooServer(server, service.NewCommService(data.NewCommUseCase()))
+	pv1.RegisterCommentServer(server, service.NewCommService(data.NewCommUseCase()))
 	return server.Serve(conn)
 }

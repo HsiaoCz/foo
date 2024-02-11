@@ -42,7 +42,7 @@ func UserSingup(c *fiber.Ctx) error {
 	defer conn.Close()
 	ctx, cancel := context.WithTimeout(context.Background(), 1500*time.Millisecond)
 	defer cancel()
-	client := pv1.NewFooClient(conn)
+	client := pv1.NewUserClient(conn)
 	resp, err := client.UserSignup(ctx, &pv1.SignupRequest{
 		Username: users.Username,
 		Password: users.Password,
@@ -64,10 +64,28 @@ func UserLogin(c *fiber.Ctx) error {
 	if err := c.BodyParser(userL); err != nil {
 		return err
 	}
-	
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"Code":    fiber.StatusOK,
-		"Message": "Login successed!",
+	conn, err := grpc.Dial(etc.Conf.Addr.User, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		zap.L().Error("grpc dial err:%v\n", zap.Error(err))
+		return err
+	}
+	defer conn.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), 1500*time.Millisecond)
+	defer cancel()
+	client := pv1.NewUserClient(conn)
+	resp, err := client.UserLogin(ctx, &pv1.LoginRequest{
+		Username: userL.Username,
+		Password: userL.Password,
+		Email:    userL.Email,
+		Phone:    userL.Phone,
+	})
+	if err != nil {
+		zap.L().Error("grpc user login err:%v\n", zap.Error(err))
+		return err
+	}
+	return c.Status(int(resp.GetCode())).JSON(fiber.Map{
+		"Code":    resp.GetCode(),
+		"Message": resp.GetMsg(),
 	})
 }
 

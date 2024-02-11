@@ -14,6 +14,6 @@ func RegisterGrpc(network, addr string) error {
 		return err
 	}
 	server := grpc.NewServer()
-	pv1.RegisterFooServer(server, service.NewContentService())
+	pv1.RegisterContentServer(server, service.NewContentService())
 	return server.Serve(conn)
 }

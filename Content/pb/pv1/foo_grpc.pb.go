@@ -19,128 +19,488 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Foo_UserSignup_FullMethodName = "/pv1.Foo/UserSignup"
-	Foo_UserLogin_FullMethodName  = "/pv1.Foo/UserLogin"
+	User_UserSignup_FullMethodName = "/pv1.User/UserSignup"
+	User_UserLogin_FullMethodName  = "/pv1.User/UserLogin"
 )
 
-// FooClient is the client API for Foo service.
+// UserClient is the client API for User service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type FooClient interface {
+type UserClient interface {
 	// user api
 	UserSignup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*SignupResponse, error)
 	UserLogin(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 }
 
-type fooClient struct {
+type userClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewFooClient(cc grpc.ClientConnInterface) FooClient {
-	return &fooClient{cc}
+func NewUserClient(cc grpc.ClientConnInterface) UserClient {
+	return &userClient{cc}
 }
 
-func (c *fooClient) UserSignup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*SignupResponse, error) {
+func (c *userClient) UserSignup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*SignupResponse, error) {
 	out := new(SignupResponse)
-	err := c.cc.Invoke(ctx, Foo_UserSignup_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, User_UserSignup_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *fooClient) UserLogin(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+func (c *userClient) UserLogin(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
 	out := new(LoginResponse)
-	err := c.cc.Invoke(ctx, Foo_UserLogin_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, User_UserLogin_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// FooServer is the server API for Foo service.
-// All implementations must embed UnimplementedFooServer
+// UserServer is the server API for User service.
+// All implementations must embed UnimplementedUserServer
 // for forward compatibility
-type FooServer interface {
+type UserServer interface {
 	// user api
 	UserSignup(context.Context, *SignupRequest) (*SignupResponse, error)
 	UserLogin(context.Context, *LoginRequest) (*LoginResponse, error)
-	mustEmbedUnimplementedFooServer()
+	mustEmbedUnimplementedUserServer()
 }
 
-// UnimplementedFooServer must be embedded to have forward compatible implementations.
-type UnimplementedFooServer struct {
+// UnimplementedUserServer must be embedded to have forward compatible implementations.
+type UnimplementedUserServer struct {
 }
 
-func (UnimplementedFooServer) UserSignup(context.Context, *SignupRequest) (*SignupResponse, error) {
+func (UnimplementedUserServer) UserSignup(context.Context, *SignupRequest) (*SignupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserSignup not implemented")
 }
-func (UnimplementedFooServer) UserLogin(context.Context, *LoginRequest) (*LoginResponse, error) {
+func (UnimplementedUserServer) UserLogin(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserLogin not implemented")
 }
-func (UnimplementedFooServer) mustEmbedUnimplementedFooServer() {}
+func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
-// UnsafeFooServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to FooServer will
+// UnsafeUserServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to UserServer will
 // result in compilation errors.
-type UnsafeFooServer interface {
-	mustEmbedUnimplementedFooServer()
+type UnsafeUserServer interface {
+	mustEmbedUnimplementedUserServer()
 }
 
-func RegisterFooServer(s grpc.ServiceRegistrar, srv FooServer) {
-	s.RegisterService(&Foo_ServiceDesc, srv)
+func RegisterUserServer(s grpc.ServiceRegistrar, srv UserServer) {
+	s.RegisterService(&User_ServiceDesc, srv)
 }
 
-func _Foo_UserSignup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _User_UserSignup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SignupRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FooServer).UserSignup(ctx, in)
+		return srv.(UserServer).UserSignup(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Foo_UserSignup_FullMethodName,
+		FullMethod: User_UserSignup_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FooServer).UserSignup(ctx, req.(*SignupRequest))
+		return srv.(UserServer).UserSignup(ctx, req.(*SignupRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Foo_UserLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _User_UserLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LoginRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FooServer).UserLogin(ctx, in)
+		return srv.(UserServer).UserLogin(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Foo_UserLogin_FullMethodName,
+		FullMethod: User_UserLogin_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FooServer).UserLogin(ctx, req.(*LoginRequest))
+		return srv.(UserServer).UserLogin(ctx, req.(*LoginRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Foo_ServiceDesc is the grpc.ServiceDesc for Foo service.
+// User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Foo_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "pv1.Foo",
-	HandlerType: (*FooServer)(nil),
+var User_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pv1.User",
+	HandlerType: (*UserServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "UserSignup",
-			Handler:    _Foo_UserSignup_Handler,
+			Handler:    _User_UserSignup_Handler,
 		},
 		{
 			MethodName: "UserLogin",
-			Handler:    _Foo_UserLogin_Handler,
+			Handler:    _User_UserLogin_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "pb/pv1/foo.proto",
+}
+
+const (
+	Content_CreateContent_FullMethodName = "/pv1.Content/CreateContent"
+)
+
+// ContentClient is the client API for Content service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type ContentClient interface {
+	CreateContent(ctx context.Context, in *CreateContentRequest, opts ...grpc.CallOption) (*CreateContentResponse, error)
+}
+
+type contentClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewContentClient(cc grpc.ClientConnInterface) ContentClient {
+	return &contentClient{cc}
+}
+
+func (c *contentClient) CreateContent(ctx context.Context, in *CreateContentRequest, opts ...grpc.CallOption) (*CreateContentResponse, error) {
+	out := new(CreateContentResponse)
+	err := c.cc.Invoke(ctx, Content_CreateContent_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ContentServer is the server API for Content service.
+// All implementations must embed UnimplementedContentServer
+// for forward compatibility
+type ContentServer interface {
+	CreateContent(context.Context, *CreateContentRequest) (*CreateContentResponse, error)
+	mustEmbedUnimplementedContentServer()
+}
+
+// UnimplementedContentServer must be embedded to have forward compatible implementations.
+type UnimplementedContentServer struct {
+}
+
+func (UnimplementedContentServer) CreateContent(context.Context, *CreateContentRequest) (*CreateContentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateContent not implemented")
+}
+func (UnimplementedContentServer) mustEmbedUnimplementedContentServer() {}
+
+// UnsafeContentServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ContentServer will
+// result in compilation errors.
+type UnsafeContentServer interface {
+	mustEmbedUnimplementedContentServer()
+}
+
+func RegisterContentServer(s grpc.ServiceRegistrar, srv ContentServer) {
+	s.RegisterService(&Content_ServiceDesc, srv)
+}
+
+func _Content_CreateContent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateContentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ContentServer).CreateContent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Content_CreateContent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ContentServer).CreateContent(ctx, req.(*CreateContentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Content_ServiceDesc is the grpc.ServiceDesc for Content service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var Content_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pv1.Content",
+	HandlerType: (*ContentServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateContent",
+			Handler:    _Content_CreateContent_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "pb/pv1/foo.proto",
+}
+
+const (
+	Admin_AdminLogin_FullMethodName = "/pv1.Admin/AdminLogin"
+)
+
+// AdminClient is the client API for Admin service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type AdminClient interface {
+	AdminLogin(ctx context.Context, in *AdminLoginRequest, opts ...grpc.CallOption) (*AdminLoginResponse, error)
+}
+
+type adminClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewAdminClient(cc grpc.ClientConnInterface) AdminClient {
+	return &adminClient{cc}
+}
+
+func (c *adminClient) AdminLogin(ctx context.Context, in *AdminLoginRequest, opts ...grpc.CallOption) (*AdminLoginResponse, error) {
+	out := new(AdminLoginResponse)
+	err := c.cc.Invoke(ctx, Admin_AdminLogin_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// AdminServer is the server API for Admin service.
+// All implementations must embed UnimplementedAdminServer
+// for forward compatibility
+type AdminServer interface {
+	AdminLogin(context.Context, *AdminLoginRequest) (*AdminLoginResponse, error)
+	mustEmbedUnimplementedAdminServer()
+}
+
+// UnimplementedAdminServer must be embedded to have forward compatible implementations.
+type UnimplementedAdminServer struct {
+}
+
+func (UnimplementedAdminServer) AdminLogin(context.Context, *AdminLoginRequest) (*AdminLoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminLogin not implemented")
+}
+func (UnimplementedAdminServer) mustEmbedUnimplementedAdminServer() {}
+
+// UnsafeAdminServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to AdminServer will
+// result in compilation errors.
+type UnsafeAdminServer interface {
+	mustEmbedUnimplementedAdminServer()
+}
+
+func RegisterAdminServer(s grpc.ServiceRegistrar, srv AdminServer) {
+	s.RegisterService(&Admin_ServiceDesc, srv)
+}
+
+func _Admin_AdminLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminLoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServer).AdminLogin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Admin_AdminLogin_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServer).AdminLogin(ctx, req.(*AdminLoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Admin_ServiceDesc is the grpc.ServiceDesc for Admin service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var Admin_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pv1.Admin",
+	HandlerType: (*AdminServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "AdminLogin",
+			Handler:    _Admin_AdminLogin_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "pb/pv1/foo.proto",
+}
+
+const (
+	Serach_AddSerachHistory_FullMethodName = "/pv1.Serach/AddSerachHistory"
+)
+
+// SerachClient is the client API for Serach service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type SerachClient interface {
+	AddSerachHistory(ctx context.Context, in *AddSerachHistoryRequest, opts ...grpc.CallOption) (*AddSerachHistoryResponse, error)
+}
+
+type serachClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewSerachClient(cc grpc.ClientConnInterface) SerachClient {
+	return &serachClient{cc}
+}
+
+func (c *serachClient) AddSerachHistory(ctx context.Context, in *AddSerachHistoryRequest, opts ...grpc.CallOption) (*AddSerachHistoryResponse, error) {
+	out := new(AddSerachHistoryResponse)
+	err := c.cc.Invoke(ctx, Serach_AddSerachHistory_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// SerachServer is the server API for Serach service.
+// All implementations must embed UnimplementedSerachServer
+// for forward compatibility
+type SerachServer interface {
+	AddSerachHistory(context.Context, *AddSerachHistoryRequest) (*AddSerachHistoryResponse, error)
+	mustEmbedUnimplementedSerachServer()
+}
+
+// UnimplementedSerachServer must be embedded to have forward compatible implementations.
+type UnimplementedSerachServer struct {
+}
+
+func (UnimplementedSerachServer) AddSerachHistory(context.Context, *AddSerachHistoryRequest) (*AddSerachHistoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddSerachHistory not implemented")
+}
+func (UnimplementedSerachServer) mustEmbedUnimplementedSerachServer() {}
+
+// UnsafeSerachServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SerachServer will
+// result in compilation errors.
+type UnsafeSerachServer interface {
+	mustEmbedUnimplementedSerachServer()
+}
+
+func RegisterSerachServer(s grpc.ServiceRegistrar, srv SerachServer) {
+	s.RegisterService(&Serach_ServiceDesc, srv)
+}
+
+func _Serach_AddSerachHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddSerachHistoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SerachServer).AddSerachHistory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Serach_AddSerachHistory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SerachServer).AddSerachHistory(ctx, req.(*AddSerachHistoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Serach_ServiceDesc is the grpc.ServiceDesc for Serach service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var Serach_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pv1.Serach",
+	HandlerType: (*SerachServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "AddSerachHistory",
+			Handler:    _Serach_AddSerachHistory_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "pb/pv1/foo.proto",
+}
+
+const (
+	Comment_AddComment_FullMethodName = "/pv1.Comment/AddComment"
+)
+
+// CommentClient is the client API for Comment service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type CommentClient interface {
+	AddComment(ctx context.Context, in *AddCommentRequest, opts ...grpc.CallOption) (*AddCommentResponse, error)
+}
+
+type commentClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewCommentClient(cc grpc.ClientConnInterface) CommentClient {
+	return &commentClient{cc}
+}
+
+func (c *commentClient) AddComment(ctx context.Context, in *AddCommentRequest, opts ...grpc.CallOption) (*AddCommentResponse, error) {
+	out := new(AddCommentResponse)
+	err := c.cc.Invoke(ctx, Comment_AddComment_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CommentServer is the server API for Comment service.
+// All implementations must embed UnimplementedCommentServer
+// for forward compatibility
+type CommentServer interface {
+	AddComment(context.Context, *AddCommentRequest) (*AddCommentResponse, error)
+	mustEmbedUnimplementedCommentServer()
+}
+
+// UnimplementedCommentServer must be embedded to have forward compatible implementations.
+type UnimplementedCommentServer struct {
+}
+
+func (UnimplementedCommentServer) AddComment(context.Context, *AddCommentRequest) (*AddCommentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddComment not implemented")
+}
+func (UnimplementedCommentServer) mustEmbedUnimplementedCommentServer() {}
+
+// UnsafeCommentServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CommentServer will
+// result in compilation errors.
+type UnsafeCommentServer interface {
+	mustEmbedUnimplementedCommentServer()
+}
+
+func RegisterCommentServer(s grpc.ServiceRegistrar, srv CommentServer) {
+	s.RegisterService(&Comment_ServiceDesc, srv)
+}
+
+func _Comment_AddComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddCommentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommentServer).AddComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Comment_AddComment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommentServer).AddComment(ctx, req.(*AddCommentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Comment_ServiceDesc is the grpc.ServiceDesc for Comment service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var Comment_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pv1.Comment",
+	HandlerType: (*CommentServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "AddComment",
+			Handler:    _Comment_AddComment_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
